@@ -6,25 +6,25 @@ import 'src/exports.dart';
 
 export 'src/interface.dart' show RustSignal;
 
-/// Prepares the native interface
-/// needed to communicate with Rust.
-Future<void> prepareInterface(HandleRustSignal handleRustSignal) async {
-  await prepareInterfaceExtern(handleRustSignal);
-}
-
 /// Starts the `main` function in Rust.
-void startRustLogic() async {
-  startRustLogicExtern();
+Future<void> initializeRust(
+  AssignRustSignal assignRustSignal, {
+  String? compiledLibPath,
+}) async {
+  if (compiledLibPath != null) {
+    setCompiledLibPathReal(compiledLibPath);
+  }
+  await prepareInterfaceReal(assignRustSignal);
+  startRustLogicReal();
 }
 
-/// Terminates all Rust tasks.
-/// Doing so before closing the Flutter app
-/// can prevent potential memory errors that may occur
-/// when Rust attempts to send data after the Dart VM has been turned off.
+/// Terminates all Rust tasks by dropping the async runtime.
+/// Calling this function before closing the Flutter app
+/// can prevent potential resource leaks.
 /// Please note that on the web, this function does not have any effect,
 /// as tasks are managed by the JavaScript runtime, not Rust.
-void stopRustLogic() async {
-  stopRustLogicExtern();
+void finalizeRust() async {
+  stopRustLogicReal();
 }
 
 /// Sends a signal to Rust.
@@ -33,7 +33,7 @@ void sendDartSignal(
   Uint8List messageBytes,
   Uint8List binary,
 ) async {
-  sendDartSignalExtern(
+  sendDartSignalReal(
     messageId,
     messageBytes,
     binary,

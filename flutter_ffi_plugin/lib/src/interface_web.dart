@@ -7,8 +7,14 @@ import 'interface.dart';
 import 'dart:async';
 import 'dart:convert';
 
-Future<void> prepareInterfaceExtern(
-  HandleRustSignal handleRustSignal,
+/// Sets the path to the JavaScript module
+/// that needs to be loaded.
+void setCompiledLibPathReal(String path) {
+  setJsLibPath(path);
+}
+
+Future<void> prepareInterfaceReal(
+  AssignRustSignal assignRustSignal,
 ) async {
   await loadJsFile();
 
@@ -25,11 +31,11 @@ Future<void> prepareInterfaceExtern(
       print(rustReport);
       return;
     }
-    handleRustSignal(messageId, messageBytes, binary);
+    assignRustSignal(messageId, messageBytes, binary);
   };
 }
 
-void startRustLogicExtern() {
+void startRustLogicReal() {
   if (wasAlreadyLoaded) {
     return;
   }
@@ -37,11 +43,11 @@ void startRustLogicExtern() {
   jsObject.callMethod('start_rust_logic_extern', []);
 }
 
-void stopRustLogicExtern() {
-  // Dummy function to match that of the OS module.
+void stopRustLogicReal() {
+  // Dummy function to match the structure of native platforms.
 }
 
-void sendDartSignalExtern(
+void sendDartSignalReal(
   int messageId,
   Uint8List messageBytes,
   Uint8List binary,

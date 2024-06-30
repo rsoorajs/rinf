@@ -33,16 +33,16 @@ rinf wasm --release
 flutter run --release  # Choose a browser
 ```
 
-To build the optimized release version of the web application:
+To build the optimized release version of the web application[^4]:
+
+[^4]: Rinf supports hosting a Flutter app at a [non-root location](https://docs.flutter.dev/ui/navigation/url-strategies#hosting-a-flutter-app-at-a-non-root-location). For example, you can place your Flutter app in `https://mywebsite.com/subpath/deeperpath/`.
 
 ```bash title="CLI"
 rinf wasm --release
 flutter build web
 ```
 
-### Deploying On a Web Server
-
-When deploying your web app, ensure that your web server is configured to include cross-origin-related HTTP headers in its responses. These headers enable web browsers using your website to gain access to `SharedArrayBuffer` web API, which is something similar to shared memory on the web.
+When deploying your web app on a web server, ensure that your web server is configured to include cross-origin-related HTTP headers in its responses. These headers enable web browsers using your website to gain access to `SharedArrayBuffer` web API, which is something similar to shared memory on the web.
 
 - [`Cross-Origin-Opener-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Opener-Policy): `same-origin`
 - [`Cross-Origin-Embedder-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cross-Origin-Embedder-Policy): `require-corp`.

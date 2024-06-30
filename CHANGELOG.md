@@ -1,3 +1,42 @@
+## 6.14.0
+
+- New feature `bevy` for treating Dart signals as Bevy events was added. Thanks @Deep-co-de!
+
+## 6.13.0
+
+- The `get_dart_signal_receiver` function now returns `Result`. You need to use `unwrap` or `?` to retrieve Dart signal receivers from the generated message structs.
+- You now need to manually provide the generated `assignRustSignal` to the `initializeRust` function, which can be imported using `import 'package:rinf/rinf.dart';` in Dart.
+- The tokio runtime will now default to being single-threaded. To use a multi-threaded tokio runtime, enable the new `rt-multi-thread` crate feature.
+- By default, backtraces will be hidden in the CLI, with only the error message being printed. To display the Rust backtrace, enable the new `backtrace` crate feature.
+
+## 6.12.1
+
+- Fixed linefeed problem in published files.
+
+## 6.12.0
+
+- Generated message channels are now more efficient.
+- Minimum Android SDK version increased from 16 to 21. Thanks @debanjanbasu!
+- The `finalizeRust()` function in Dart has been removed. The `tokio` async runtime, which holds Rust logic, still drops automatically when the app ends.
+- Bumped `prost` version to 0.12.6. Thanks @yeoupooh!
+- Internal code has been organized.
+
+## 6.11.1
+
+- Fixed a bug with Dart's extension methods in the generated message code.
+
+## 6.11.0
+
+- Now it's possible to set the dynamic library's path.
+- Now `rinf message` generates more memory-efficient and cleaner code.
+
+## 6.10.0
+
+- Early Dart signals are now stored in the tokio channel instead of being ignored. Their performance is also slightly better.
+- Excessive sample code is not included in the template from the `rinf template` command anymore.
+- Now `tokio` is enabled by default in the template, not `tokio_with_wasm`.
+- A configuration option, `rinf.message.rust_serde`, was added to make generated Rust message files compatible with `serde`. Thanks @NeoVance!
+
 ## 6.9.2
 
 - Early Dart signals have become more stable.

@@ -1,7 +1,7 @@
 # Verify that the documentation steps function as intended
 # when users utilize released versions
 # instead of the code from the repository.
-name: user-installation
+name: user-app
 
 on:
   workflow_dispatch:
@@ -53,7 +53,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "zulu"
-          java-version: "11"
+          java-version: "17"
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -64,8 +64,8 @@ jobs:
         working-directory: rust_crate/
         run: cargo install rinf
 
-      - name: Create a Flutter app for testing
-        run: python automate create-user-app
+      - name: Prepare a Flutter app for testing
+        run: python automate prepare-user-app
 
       - name: Build the example app
         if: matrix.target == 'linux'
